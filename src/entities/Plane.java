@@ -29,6 +29,7 @@ import org.javatuples.Pair;
 import manager.SSDManager;
 import utils.Utils;
 
+
 /**
  * @author Roman
  * 
@@ -76,7 +77,7 @@ public abstract class Plane<B extends Block<?>> {
 	}
 
 	private List<B> blocksList;
-	private SSDManager<?,B,?,?,?> manager;
+	protected SSDManager<?,B,?,?,?> manager;
 
 	private int validPagesCounter = 0;
 	private int numOfClean = 0;
@@ -228,6 +229,7 @@ public abstract class Plane<B extends Block<?>> {
 		int victimBlock = getLowestValidBlockIndex();
 		return new Pair<Integer, B>(victimBlock, getBlock(victimBlock));
 	}
+        
 	
 	protected boolean invokeCleaning() {
 		return getWritableBlocksNum() < manager.getGCT() && getLowestValidBlockIndex() != -1;

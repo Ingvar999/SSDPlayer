@@ -294,6 +294,11 @@ public abstract class SSDManager<P extends Page, B extends Block<P>, T extends P
 		cleanDevice = (D) cleanDevice.writeLP(lp, arg);
 		return cleanDevice;
 	}
+        
+        @SuppressWarnings("unchecked")
+	public D deleteLP(D device, int lp, int arg) {
+		return device;
+	}
 
 	/**
 	 * Each use case SSDManager may have specific workload generators he is applicable to.

@@ -29,6 +29,11 @@ public class TrimSSDManager extends SSDManager<TrimPage, TrimBlock, TrimPlane, T
 	public Color getWritenPageColor() {
 		return writtenPageColor;
 	}
+        
+        @Override 
+        public TrimDevice deleteLP(TrimDevice device, int lp, int arg) {
+		return (TrimDevice)device.invalidate(lp);
+	}
 	
 	@Override
 	public FileTraceParser<TrimDevice, TrimSSDManager> getFileTraseParser() {
@@ -50,6 +55,7 @@ public class TrimSSDManager extends SSDManager<TrimPage, TrimBlock, TrimPlane, T
 		List<WorkloadWidget<TrimDevice,SSDManager<?, ?, ?, ?, TrimDevice>>> creators = new ArrayList<>();
 		creators.add(new UniformWorkloadWidget<TrimDevice,SSDManager<?, ?, ?, ?, TrimDevice>>(this));
 		creators.add(new ZipfWorkloadWidget<TrimDevice,SSDManager<?, ?, ?, ?, TrimDevice>>(this));
+                creators.add(new TrimZipfResizableWorkloadWidget<TrimDevice,SSDManager<?, ?, ?, ?, TrimDevice>>(this));
 		return creators;
 	}
 	
@@ -59,6 +65,7 @@ public class TrimSSDManager extends SSDManager<TrimPage, TrimBlock, TrimPlane, T
 		statisticsGetters.add(new LogicalWritesPerEraseGetter(this));
 		statisticsGetters.add(new WriteAmplificationGetter());
 		statisticsGetters.add(new ValidDistributionGetter(this));
+                statisticsGetters.add(new EraseDistributionGetter(this));
 		return statisticsGetters;
 	}
 	

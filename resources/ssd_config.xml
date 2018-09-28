@@ -10,7 +10,7 @@
 		<planes>2</planes>
 		<blocks>16</blocks>
 		<pages>40</pages>
-		<max_erasures>100000</max_erasures>
+		<max_erasures>50</max_erasures>
 	</physical>
 	<visual>
 		<show_counters>yes</show_counters>
@@ -75,7 +75,7 @@
         <TrimSSDManager>
 		<name>Trim</name>
 		<clean_color r="255" g="255" b="255" />
-		<written_color r="255" g="220" b="100" />
+		<written_color r="128" g="255" b="0" />
 	</TrimSSDManager>
 	<RAIDVisualizationSSDManager>
 		<name>RAID Simulation</name>

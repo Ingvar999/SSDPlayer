@@ -442,7 +442,7 @@ public class TracePlayer extends JPanel {
 	}
 
 	private void initTraceParsing(VisualConfig visualConfig) {
-		readingSpeed = visualConfig.getSpeed() > 60000 ? 60000 : 60000 / visualConfig.getSpeed();
+		readingSpeed = visualConfig.getSpeed() > 60000 ? 1 : 60000 / visualConfig.getSpeed();
 	}
 
 	private void reStartTimer() {

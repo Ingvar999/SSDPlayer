@@ -75,6 +75,7 @@ public class GreedySSDManager extends SSDManager<BasicPage, BasicBlock, BasicPla
 		statisticsGetters.add(new LogicalWritesPerEraseGetter(this));
 		statisticsGetters.add(new WriteAmplificationGetter());
 		statisticsGetters.add(new ValidDistributionGetter(this));
+                statisticsGetters.add(new EraseDistributionGetter(this));
 		return statisticsGetters;
 	}
 	

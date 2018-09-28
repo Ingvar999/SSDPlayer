@@ -15,14 +15,14 @@ import entities.Device;
 public class ZipfResizableWorkloadGenerator<D extends Device<?>, S extends SSDManager<?,?,?,?,D>> 
 	extends ResizableWorkloadGenerator<D, S> {
 	
-	private ZipfDistribution zipf;
-	private int seed;
-	private double exponent;
+	protected ZipfDistribution zipf;
+	protected int seed;
+	protected double exponent;
 
-	public ZipfResizableWorkloadGenerator(S manager, int traceLength,
+	public ZipfResizableWorkloadGenerator(String name, S manager, int traceLength,
 			int seed, double exponent, int maxWriteSize, boolean isWriteSizeUniform) {
 		
-		super("Zipf Resizable", manager, traceLength, maxWriteSize, isWriteSizeUniform);
+		super(name, manager, traceLength, maxWriteSize, isWriteSizeUniform);
 		this.seed = seed;
 		this.exponent = exponent;
 		JDKRandomGenerator jdkRandomGenerator = new JDKRandomGenerator();

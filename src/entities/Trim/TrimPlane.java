@@ -42,16 +42,24 @@ public class TrimPlane extends Plane<TrimBlock> {
 			super.validate();
 		}
 	}
+        
+        private int lowestEraseBlockIndex = -1;
 	
 	protected TrimPlane() {}
 		
 	protected TrimPlane(TrimPlane other) {
 		super(other);
+                initLowestEraseBlockIndex();
 	}
 
 	@Override
 	public Builder getSelfBuilder() {
 		return new Builder(this);
+	}
+        
+        @Override
+        protected Pair<Integer, TrimBlock> pickBlockToClean(){
+		return new Pair<Integer, TrimBlock>(lowestEraseBlockIndex, getBlock(lowestEraseBlockIndex));
 	}
 
 	@Override
@@ -106,4 +114,24 @@ public class TrimPlane extends Plane<TrimBlock> {
 		builder.setBlocks(cleanBlocks).setTotalGCInvocations(gcInvocations);
 		return new Pair<>(builder.build(), toMove);
 	}
+        
+        protected void initLowestEraseBlockIndex(){
+            int minValid = 0;
+            int minErased = Integer.MAX_VALUE;;
+            int i = 0;
+		for (TrimBlock block : getBlocks()) {
+			if(isUsed(block)) {
+				if (block.getEraseCounter() < minErased) {
+					minValid = block.getValidCounter();
+					minErased = block.getEraseCounter();
+					lowestEraseBlockIndex = i;
+				} else if (block.getEraseCounter() == minErased && block.getValidCounter() < minValid) {
+					minValid = block.getValidCounter();
+					minErased = block.getEraseCounter();
+					lowestEraseBlockIndex = i;
+				}
+			}
+			++i;
+		}
+        }
 }

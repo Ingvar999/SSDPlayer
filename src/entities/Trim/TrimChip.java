@@ -43,4 +43,29 @@ public class TrimChip extends Chip<TrimPlane> {
 	public Builder getSelfBuilder() {
 		return new Builder(this);
 	}
+        
+        @Override
+        protected int getMinValidCountPlaneIndex() {
+		int minIndex = 0;
+		int minValue = Integer.MAX_VALUE;
+		
+		int planeIndex = 0;
+		for (TrimPlane plane : getPlanes()) {
+			int temp = plane.getNumOfBlockErasures();
+			if (temp < minValue) {
+				minIndex = planeIndex;
+				minValue = temp;
+			}
+			++planeIndex;
+		}
+		return minIndex;
+	}
+        
+        public int getNumOfPlaneErasures() {
+		int numOfErasures = 0;
+		for (TrimPlane plane : getPlanes()) {
+			numOfErasures += plane.getNumOfBlockErasures();
+		}
+		return numOfErasures;
+	}
 }
