@@ -77,6 +77,11 @@
 		<clean_color r="255" g="255" b="255" />
 		<written_color r="128" g="255" b="0" />
 	</TrimSSDManager>
+        <ECCManager>
+		<name>ECC</name>
+		<clean_color r="255" g="255" b="255" />
+		<written_color r="255" g="180" b="50" />
+	</ECCManager>
 	<RAIDVisualizationSSDManager>
 		<name>RAID Simulation</name>
 		<clean_color r="255" g="255" b="255"></clean_color>

@@ -52,6 +52,7 @@ public class TrimDevice extends Device<TrimChip> {
 		return new Builder(this);
 	}
         
+        @Override
         public Device<TrimChip>  invalidate(int lp) {
                 List<TrimChip> updatedChips = new ArrayList<TrimChip>();
 		for (TrimChip chip : getChips()) {
@@ -62,6 +63,7 @@ public class TrimDevice extends Device<TrimChip> {
 		return builder.build();
 	}
 
+        @Override
 	public Device<TrimChip> writeLP(int lp, int arg) {
 		int minIndex = 0;
 		int minValue = Integer.MAX_VALUE;		
