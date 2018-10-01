@@ -21,6 +21,8 @@
  *******************************************************************************/
 package manager;
 
+import workload_generators.UniformWorkloadWidget;
+import workload_generators.ZipfWorkloadWidget;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -19,85 +19,47 @@
  * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE
  *******************************************************************************/
-package manager;
+package statistic_getters;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
-import general.ConfigProperties;
-import entities.Block;
-import entities.Chip;
+import ui.GeneralStatisticsGraph;
+import ui.RegularHistoryGraph;
 import entities.Device;
-import entities.Plane;
 import entities.StatisticsColumn;
 import entities.StatisticsGetter;
-import ui.GeneralStatisticsGraph;
-import ui.HistogramGraph;
 
-public class EraseDistributionGetter implements StatisticsGetter {
-
-
-	private static int columnDisplayFreq = 2;
-	private SSDManager<?, ?, ?, ?, ?> manager;
-
-	public EraseDistributionGetter(SSDManager<?,?,?,?,?> manager) {
-		this.manager = manager;
-		if (manager.getPagesNum() > 20) {			
-			columnDisplayFreq = (getNumberOfColumns()/10); 
-		}
-	}
-
+public class WriteAmplificationGetter implements StatisticsGetter {
 	@Override
 	public int getNumberOfColumns() {
-		return ConfigProperties.getMaxErasures();
+		return 1;
 	}
 
 	@Override
 	public List<StatisticsColumn> getStatistics(Device<?> device) {
-		int[] counters = new int[getNumberOfColumns()];
-		for (Chip<?> chip : device.getChips()) {
-			for (Plane<?> plane : chip.getPlanes()) {
-				for (Block<?> block : plane.getBlocks()) {					
-					counters[block.getEraseCounter()]++;
-				}
-			}
-		}
-		
-		int overallBlocks = manager.getBlocksNum()*manager.getPlanesNum()*manager.getChipsNum();
+		double valueWA = computeWA(device);
 		List<StatisticsColumn> list = new ArrayList<StatisticsColumn>();
-		for (int i = 0; i < counters.length; i++) {
-			list.add(new StatisticsColumn(i+"", ((double)counters[i]*100)/overallBlocks,i%columnDisplayFreq==0));
-		}
+		list.add(new StatisticsColumn("total writes to logical writes", 
+										valueWA, false));
 		return list;
-	}
-
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-	public Entry<String, String> getInfoEntry(Device<?> device) {
-		List<StatisticsColumn> statistics = getStatistics(device);
-		StringBuilder sb = new StringBuilder();
-		int colCount = 0;
-		for (StatisticsColumn col : statistics) {
-			sb.append(col.getColumnName());
-			sb.append(": ");
-			sb.append((int) col.getValue());
-			colCount++;
-			if (colCount != statistics.size()) {
-				if (colCount % 6 == 5) {
-					sb.append(",\n");
-				} else {
-					sb.append(", ");
-				}
-			}
-		}
-
-		return new AbstractMap.SimpleEntry("Erase histogram", sb.toString());
 	}
 
 	@Override
 	public GeneralStatisticsGraph getStatisticsGraph() {
-		return new HistogramGraph("Erase Histogram", this);
+		return new RegularHistoryGraph("Write Amplification", this, 1.5, 1);
+	}
+	
+	public static double computeWA(Device<?> device) {
+		int total = device.getTotalMoved() + device.getTotalWritten();
+		double valueWA = total==0 ? 1 : ((double)total)/device.getTotalWritten();
+		return valueWA;
+	}
+	
+	@Override
+	public Entry<String, String> getInfoEntry(Device<?> device) {
+		return new AbstractMap.SimpleEntry<>("Write amplification", Double.toString(computeWA(device)));
 	}
 }

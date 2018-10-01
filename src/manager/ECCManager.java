@@ -5,6 +5,11 @@
  */
 package manager;
 
+import statistic_getters.ValidDistributionGetter;
+import statistic_getters.EraseDistributionGetter;
+import statistic_getters.WriteAmplificationGetter;
+import workload_generators.UniformWorkloadWidget;
+import workload_generators.ZipfWorkloadWidget;
 import ECC.CyclicHammingCode_31_26_3;
 import ECC.IECCCoder;
 import ECC.IMistakeMaker;
@@ -23,6 +28,7 @@ import entities.ECC.ECCChip;
 import entities.ECC.ECCDevice;
 import general.XMLGetter;
 import general.XMLParsingException;
+import workload_generators.ECCWorkloadWidget;
 
 public class ECCManager extends SSDManager<ECCPage, ECCBlock, ECCPlane, ECCChip ,ECCDevice> {
 	private Color writtenPageColor;
@@ -58,6 +64,7 @@ public class ECCManager extends SSDManager<ECCPage, ECCBlock, ECCPlane, ECCChip 
 		List<WorkloadWidget<ECCDevice,SSDManager<?, ?, ?, ?, ECCDevice>>> creators = new ArrayList<>();
 		creators.add(new UniformWorkloadWidget<ECCDevice,SSDManager<?, ?, ?, ?, ECCDevice>>(this));
 		creators.add(new ZipfWorkloadWidget<ECCDevice,SSDManager<?, ?, ?, ?, ECCDevice>>(this));
+                creators.add(new ECCWorkloadWidget<ECCDevice,SSDManager<?, ?, ?, ?, ECCDevice>>(this));
 		return creators;
 	}
 	

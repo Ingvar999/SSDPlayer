@@ -1,7 +1,7 @@
 package breakpoints;
 
 import entities.Device;
-import manager.LogicalWritesPerEraseGetter;
+import statistic_getters.LogicalWritesPerEraseGetter;
 
 public class WritesPerErase extends BreakpointBase {
 	private double mValue = 1.0;

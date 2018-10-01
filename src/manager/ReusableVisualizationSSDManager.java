@@ -21,6 +21,7 @@
  *******************************************************************************/
 package manager;
 
+import statistic_getters.LogicalWritesPerEraseGetter;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;

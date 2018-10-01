@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package manager;
+package workload_generators;
 
 import entities.Device;
 import java.text.DecimalFormat;
+import manager.SSDManager;
 import org.apache.commons.math3.distribution.ZipfDistribution;
 import org.apache.commons.math3.random.JDKRandomGenerator;
 

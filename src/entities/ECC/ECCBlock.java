@@ -86,6 +86,23 @@ public class ECCBlock extends Block<ECCPage> {
 		}
 		return null;
 	}
+        
+        @Override
+	public ECCBlock move(int lp, int lpArg) {
+		int index = 0;
+		for (ECCPage page : getPages()) {
+			if (page.isClean()) {
+				ECCPage.Builder builder = getWrittenPageBuilder(lp, lpArg, page);
+				builder.setClean(false).setLp(lp).setGC(true).setValid(true);
+				ECCPage newpage = builder.build();
+                                ECCBlock newblock = (ECCBlock)addValidPage(index, newpage);
+                                newpage.setParentBlock(newblock);
+				return newblock;
+			}
+			++index;
+		}
+		return null;
+	}
 	
         @Override
         protected ECCPage.Builder getWrittenPageBuilder(int lp, int lpArg, ECCPage page) {

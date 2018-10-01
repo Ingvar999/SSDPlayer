@@ -6,10 +6,10 @@
 		<overprovisioning>30</overprovisioning>
 		<!-- GCT is garbage collection threshold - as percents -->
 		<gc_threshold>7</gc_threshold>
-		<chips>3</chips>
+		<chips>2</chips>
 		<planes>2</planes>
-		<blocks>16</blocks>
-		<pages>40</pages>
+		<blocks>10</blocks>
+		<pages>24</pages>
 		<max_erasures>50</max_erasures>
 	</physical>
 	<visual>

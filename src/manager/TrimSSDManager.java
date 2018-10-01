@@ -5,6 +5,13 @@
  */
 package manager;
 
+import statistic_getters.LogicalWritesPerEraseGetter;
+import statistic_getters.ValidDistributionGetter;
+import statistic_getters.EraseDistributionGetter;
+import statistic_getters.WriteAmplificationGetter;
+import workload_generators.TrimZipfResizableWorkloadWidget;
+import workload_generators.UniformWorkloadWidget;
+import workload_generators.ZipfWorkloadWidget;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;

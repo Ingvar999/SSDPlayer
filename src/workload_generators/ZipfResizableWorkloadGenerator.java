@@ -1,26 +1,26 @@
-package generators;
+package workload_generators;
 
-import manager.*;
 import java.text.DecimalFormat;
 
 import org.apache.commons.math3.distribution.ZipfDistribution;
 import org.apache.commons.math3.random.JDKRandomGenerator;
 
 import entities.Device;
+import manager.SSDManager;
 
 /**
  * 
  * @author Or Mauda
  *
  */
-public class ECCWorkloadGenerator<D extends Device<?>, S extends SSDManager<?,?,?,?,D>> 
+public class ZipfResizableWorkloadGenerator<D extends Device<?>, S extends SSDManager<?,?,?,?,D>> 
 	extends ResizableWorkloadGenerator<D, S> {
 	
 	protected ZipfDistribution zipf;
 	protected int seed;
 	protected double exponent;
 
-	public ECCWorkloadGenerator(String name, S manager, int traceLength,
+	public ZipfResizableWorkloadGenerator(String name, S manager, int traceLength,
 			int seed, double exponent, int maxWriteSize, boolean isWriteSizeUniform) {
 		
 		super(name, manager, traceLength, maxWriteSize, isWriteSizeUniform);

@@ -301,7 +301,7 @@ public abstract class Block<P extends Page> {
 	@SuppressWarnings("unchecked")
 	private P invalidatePage(P page) {
 		Page.Builder builder = page.getSelfBuilder();
-		builder.setValid(false);
+		builder.setValid(false).setLp(-1);
 		return (P) builder.build();
 	}
 		

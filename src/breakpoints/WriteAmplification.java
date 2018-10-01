@@ -1,7 +1,7 @@
 package breakpoints;
 
 import entities.Device;
-import manager.WriteAmplificationGetter;
+import statistic_getters.WriteAmplificationGetter;
 
 public class WriteAmplification extends BreakpointBase {
 	private double mValue = 1.0;

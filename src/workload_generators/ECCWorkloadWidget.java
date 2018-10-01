@@ -3,31 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package manager;
+package workload_generators;
 
+import manager.*;
 import java.text.DecimalFormat;
 
 import javax.swing.JFormattedTextField;
 
 import entities.Device;
+import entities.ECC.ECCDevice;
 
-public class TrimZipfResizableWorkloadWidget<D extends Device<?>, S extends SSDManager<?,?,?,?,D>>
+public class ECCWorkloadWidget<D extends ECCDevice, S extends SSDManager<?,?,?,?,D>>
 	extends ZipfResizableWorkloadWidget<D, S> {
 
 	private static final long serialVersionUID = 1L;
 	
 	private JFormattedTextField writesInput;
 	
-	public TrimZipfResizableWorkloadWidget(S manager) {
-		super("Trim", manager);
+	public ECCWorkloadWidget(S manager) {
+		super("Read", manager);
 		writesInput = new JFormattedTextField(new DecimalFormat("##"));
 		writesInput.setValue(2);
-		addField(writesInput, "Writes per delete");
+		addField(writesInput, "Reads per write");
 	}
 
 	@Override
 	public WorkloadGenerator<D, S> createWorkloadGenerator() {
-		return new TrimZipfResizableWorkloadGenerator<D,S>("Trim", manager, getWorkloadLength(), getSeed(), getExponent(), getMaxWriteSize(), isWriteSizeUniform(), getWritesPerDelete());
+		return new ECCWorkloadGenerator<D,S>("Read", manager, getWorkloadLength(), getSeed(), getExponent(), getMaxWriteSize(), isWriteSizeUniform(), getWritesPerDelete());
 	}
 	
 	protected int getWritesPerDelete() {
@@ -38,7 +40,7 @@ public class TrimZipfResizableWorkloadWidget<D extends Device<?>, S extends SSDM
 		super.validateParms();
 		int wpr = ((Number)writesInput.getValue()).intValue();
 		if (wpr < 1) {
-			throw new IllegalArgumentException("Writes per delete should be larger than 1");
+			throw new IllegalArgumentException("Reads per write should be larger than 1 or equal");
 		}
 	}
 }

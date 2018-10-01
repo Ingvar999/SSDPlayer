@@ -412,6 +412,8 @@ public abstract class SSDManager<P extends Page, B extends Block<P>, T extends P
 		cleanColor = getColorField(xmlGetter, "clean_color");
 		
 		reserved = (int)(blocksInPlane * ((double)op/(op+100)));
-		gct = (int)(blocksInPlane * ((double)gct/(100)));
+		gct = (int)((double)blocksInPlane * gct / 100); 
+                if (gct < 1)
+                    gct = 1;
 	}
 }

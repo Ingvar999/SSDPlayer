@@ -42,8 +42,6 @@ public class ECCPlane extends Plane<ECCBlock> {
 			super.validate();
 		}
 	}
-        
-        private int lowestEraseBlockIndex = -1;
 	
 	protected ECCPlane() {}
 		
@@ -54,11 +52,6 @@ public class ECCPlane extends Plane<ECCBlock> {
 	@Override
 	public Builder getSelfBuilder() {
 		return new Builder(this);
-	}
-        
-        @Override
-        protected Pair<Integer, ECCBlock> pickBlockToClean(){
-		return new Pair<Integer, ECCBlock>(lowestEraseBlockIndex, getBlock(lowestEraseBlockIndex));
 	}
 
 	@Override
@@ -115,7 +108,7 @@ public class ECCPlane extends Plane<ECCBlock> {
 		if (active != -1) {			
 			cleanBlocks.set(active, activeBlock);
 		}
-		cleanBlocks.set(pickedToClean.getValue0(), (ECCBlock) pickedToClean.getValue1().eraseBlock());
+		cleanBlocks.set(pickedToClean.getValue0(), (ECCBlock)pickedToClean.getValue1().eraseBlock());
 		Builder builder = getSelfBuilder();
 		int gcInvocations = (toMove > 0)? getTotalGCInvocations() + 1 : getTotalGCInvocations();
 		builder.setBlocks(cleanBlocks).setTotalGCInvocations(gcInvocations);
