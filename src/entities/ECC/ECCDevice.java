@@ -42,12 +42,16 @@ public class ECCDevice extends Device<ECCChip> {
 		}
 	}
 	
-        public int success = 0, recovered = 0, failed = 0; 
+        public int success = 0, recovered = 0, failed = 0, total = 0; 
         
 	protected ECCDevice() {}
 	
 	protected ECCDevice(ECCDevice other) {
 		super(other);
+                success = other.success;
+                recovered = other.recovered;
+                failed = other.failed;
+                total = other.total;
 	}
         
         public ECCPage SearchLp(int lp){
@@ -67,6 +71,7 @@ public class ECCDevice extends Device<ECCChip> {
                     else
                         failed++;
                 }
+                total++;
             }
         }
 

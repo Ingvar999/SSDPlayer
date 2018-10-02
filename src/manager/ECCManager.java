@@ -28,6 +28,7 @@ import entities.ECC.ECCChip;
 import entities.ECC.ECCDevice;
 import general.XMLGetter;
 import general.XMLParsingException;
+import statistic_getters.ReadDistributionGetter;
 import workload_generators.ECCWorkloadWidget;
 
 public class ECCManager extends SSDManager<ECCPage, ECCBlock, ECCPlane, ECCChip ,ECCDevice> {
@@ -43,11 +44,6 @@ public class ECCManager extends SSDManager<ECCPage, ECCBlock, ECCPlane, ECCChip 
 	public Color getWritenPageColor() {
 		return writtenPageColor;
 	}
-        
-        public void readLp(ECCDevice device, int lp){
-            device.readLp(lp, this);
-        }
-        
 	
 	@Override
 	public FileTraceParser<ECCDevice, ECCManager> getFileTraseParser() {
@@ -74,6 +70,7 @@ public class ECCManager extends SSDManager<ECCPage, ECCBlock, ECCPlane, ECCChip 
 		statisticsGetters.add(new WriteAmplificationGetter());
 		statisticsGetters.add(new ValidDistributionGetter(this));
                 statisticsGetters.add(new EraseDistributionGetter(this));
+                statisticsGetters.add(new ReadDistributionGetter(this));
 		return statisticsGetters;
 	}
         
